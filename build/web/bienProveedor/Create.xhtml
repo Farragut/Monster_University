@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BienProveedorCreateDlg" widgetVar="BienProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBienProveedorTitle}">
+            <h:form id="BienProveedorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bienProveedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_bienProvId}" for="bienProvId" />
+                        <p:inputText id="bienProvId" value="#{bienProveedorController.selected.bienProvId}" title="#{bundle.CreateBienProveedorTitle_bienProvId}" required="true" requiredMessage="#{bundle.CreateBienProveedorRequiredMessage_bienProvId}"/>
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_bienCantidad}" for="bienCantidad" />
+                        <p:inputText id="bienCantidad" value="#{bienProveedorController.selected.bienCantidad}" title="#{bundle.CreateBienProveedorTitle_bienCantidad}" required="true" requiredMessage="#{bundle.CreateBienProveedorRequiredMessage_bienCantidad}"/>
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_bienValorUnitario}" for="bienValorUnitario" />
+                        <p:inputText id="bienValorUnitario" value="#{bienProveedorController.selected.bienValorUnitario}" title="#{bundle.CreateBienProveedorTitle_bienValorUnitario}" required="true" requiredMessage="#{bundle.CreateBienProveedorRequiredMessage_bienValorUnitario}"/>
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_bienId}" for="bienId" />
+                        <p:selectOneMenu id="bienId" value="#{bienProveedorController.selected.bienId}" >
+                            <f:selectItems value="#{bienController.itemsAvailableSelectOne}"
+                                           var="bienIdItem"
+                                           itemValue="#{bienIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_provId}" for="provId" />
+                        <p:selectOneMenu id="provId" value="#{bienProveedorController.selected.provId}" >
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="provIdItem"
+                                           itemValue="#{provIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateBienProveedorLabel_uniId}" for="uniId" />
+                        <p:selectOneMenu id="uniId" value="#{bienProveedorController.selected.uniId}" >
+                            <f:selectItems value="#{unidadMedidaController.itemsAvailableSelectOne}"
+                                           var="uniIdItem"
+                                           itemValue="#{uniIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bienProveedorController.create}" value="#{bundle.Save}" update="display,:BienProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'BienProveedorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BienProveedorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

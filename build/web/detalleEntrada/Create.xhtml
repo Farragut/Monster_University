@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleEntradaCreateDlg" widgetVar="DetalleEntradaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDetalleEntradaTitle}">
+            <h:form id="DetalleEntradaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleEntradaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDetalleEntradaLabel_detEntCantidadEntregada}" for="detEntCantidadEntregada" />
+                        <p:inputText id="detEntCantidadEntregada" value="#{detalleEntradaController.selected.detEntCantidadEntregada}" title="#{bundle.CreateDetalleEntradaTitle_detEntCantidadEntregada}" />
+                        <p:outputLabel value="#{bundle.CreateDetalleEntradaLabel_bienProveedor}" for="bienProveedor" />
+                        <p:selectOneMenu id="bienProveedor" value="#{detalleEntradaController.selected.bienProveedor}" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_bienProveedor}">
+                            <f:selectItems value="#{bienProveedorController.itemsAvailableSelectOne}"
+                                           var="bienProveedorItem"
+                                           itemValue="#{bienProveedorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDetalleEntradaLabel_entradaAlmacen}" for="entradaAlmacen" />
+                        <p:selectOneMenu id="entradaAlmacen" value="#{detalleEntradaController.selected.entradaAlmacen}" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_entradaAlmacen}">
+                            <f:selectItems value="#{entradaAlmacenController.itemsAvailableSelectOne}"
+                                           var="entradaAlmacenItem"
+                                           itemValue="#{entradaAlmacenItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleEntradaController.create}" value="#{bundle.Save}" update="display,:DetalleEntradaListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleEntradaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleEntradaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

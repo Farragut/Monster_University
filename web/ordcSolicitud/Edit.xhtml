@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdcSolicitudEditDlg" widgetVar="OrdcSolicitudEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrdcSolicitudTitle}">
+            <h:form id="OrdcSolicitudEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordcSolicitudController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOrdcSolicitudLabel_ordcSolCantidadSolicitada}" for="ordcSolCantidadSolicitada" />
+                        <p:inputText id="ordcSolCantidadSolicitada" value="#{ordcSolicitudController.selected.ordcSolCantidadSolicitada}" title="#{bundle.EditOrdcSolicitudTitle_ordcSolCantidadSolicitada}" />
+                        <p:outputLabel value="#{bundle.EditOrdcSolicitudLabel_ordcSolCantidadDespachada}" for="ordcSolCantidadDespachada" />
+                        <p:inputText id="ordcSolCantidadDespachada" value="#{ordcSolicitudController.selected.ordcSolCantidadDespachada}" title="#{bundle.EditOrdcSolicitudTitle_ordcSolCantidadDespachada}" />
+                        <p:outputLabel value="#{bundle.EditOrdcSolicitudLabel_bien}" for="bien" />
+                        <p:selectOneMenu id="bien" value="#{ordcSolicitudController.selected.bien}" required="true" requiredMessage="#{bundle.EditOrdcSolicitudRequiredMessage_bien}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bienController.itemsAvailableSelectOne}"
+                                           var="bienItem"
+                                           itemValue="#{bienItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOrdcSolicitudLabel_solicitud}" for="solicitud" />
+                        <p:selectOneMenu id="solicitud" value="#{ordcSolicitudController.selected.solicitud}" required="true" requiredMessage="#{bundle.EditOrdcSolicitudRequiredMessage_solicitud}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{solicitudController.itemsAvailableSelectOne}"
+                                           var="solicitudItem"
+                                           itemValue="#{solicitudItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOrdcSolicitudLabel_ordenContractual}" for="ordenContractual" />
+                        <p:selectOneMenu id="ordenContractual" value="#{ordcSolicitudController.selected.ordenContractual}" required="true" requiredMessage="#{bundle.EditOrdcSolicitudRequiredMessage_ordenContractual}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ordenContractualController.itemsAvailableSelectOne}"
+                                           var="ordenContractualItem"
+                                           itemValue="#{ordenContractualItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordcSolicitudController.update}" value="#{bundle.Save}" update="display,:OrdcSolicitudListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdcSolicitudEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdcSolicitudEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

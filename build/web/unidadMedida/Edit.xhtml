@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnidadMedidaEditDlg" widgetVar="UnidadMedidaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUnidadMedidaTitle}">
+            <h:form id="UnidadMedidaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unidadMedidaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUnidadMedidaLabel_uniId}" for="uniId" />
+                        <p:inputText id="uniId" value="#{unidadMedidaController.selected.uniId}" title="#{bundle.EditUnidadMedidaTitle_uniId}" required="true" requiredMessage="#{bundle.EditUnidadMedidaRequiredMessage_uniId}"/>
+                        <p:outputLabel value="#{bundle.EditUnidadMedidaLabel_uniNombre}" for="uniNombre" />
+                        <p:inputText id="uniNombre" value="#{unidadMedidaController.selected.uniNombre}" title="#{bundle.EditUnidadMedidaTitle_uniNombre}" required="true" requiredMessage="#{bundle.EditUnidadMedidaRequiredMessage_uniNombre}"/>
+                        <p:outputLabel value="#{bundle.EditUnidadMedidaLabel_uniAbreviacion}" for="uniAbreviacion" />
+                        <p:inputText id="uniAbreviacion" value="#{unidadMedidaController.selected.uniAbreviacion}" title="#{bundle.EditUnidadMedidaTitle_uniAbreviacion}" required="true" requiredMessage="#{bundle.EditUnidadMedidaRequiredMessage_uniAbreviacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unidadMedidaController.update}" value="#{bundle.Save}" update="display,:UnidadMedidaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UnidadMedidaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UnidadMedidaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

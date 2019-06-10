@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenContractualEditDlg" widgetVar="OrdenContractualEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrdenContractualTitle}">
+            <h:form id="OrdenContractualEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordenContractualController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_ordcId}" for="ordcId" />
+                        <p:inputText id="ordcId" value="#{ordenContractualController.selected.ordcId}" title="#{bundle.EditOrdenContractualTitle_ordcId}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_ordcId}"/>
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_ordcFecha}" for="ordcFecha" />
+                        <p:calendar id="ordcFecha" pattern="MM/dd/yyyy" value="#{ordenContractualController.selected.ordcFecha}" title="#{bundle.EditOrdenContractualTitle_ordcFecha}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_ordcFecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_ordcFechaEntrega}" for="ordcFechaEntrega" />
+                        <p:calendar id="ordcFechaEntrega" pattern="MM/dd/yyyy" value="#{ordenContractualController.selected.ordcFechaEntrega}" title="#{bundle.EditOrdenContractualTitle_ordcFechaEntrega}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_ordcFechaEntrega}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_ordcValorTotal}" for="ordcValorTotal" />
+                        <p:inputText id="ordcValorTotal" value="#{ordenContractualController.selected.ordcValorTotal}" title="#{bundle.EditOrdenContractualTitle_ordcValorTotal}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_ordcValorTotal}"/>
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_ordcAprobacionDf}" for="ordcAprobacionDf" />
+                        <p:selectBooleanCheckbox id="ordcAprobacionDf" value="#{ordenContractualController.selected.ordcAprobacionDf}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_ordcAprobacionDf}"/>
+                        <p:outputLabel value="#{bundle.EditOrdenContractualLabel_provId}" for="provId" />
+                        <p:selectOneMenu id="provId" value="#{ordenContractualController.selected.provId}" required="true" requiredMessage="#{bundle.EditOrdenContractualRequiredMessage_provId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="provIdItem"
+                                           itemValue="#{provIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenContractualController.update}" value="#{bundle.Save}" update="display,:OrdenContractualListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdenContractualEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdenContractualEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

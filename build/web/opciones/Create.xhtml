@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OpcionesCreateDlg" widgetVar="OpcionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOpcionesTitle}">
+            <h:form id="OpcionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{opcionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateOpcionesLabel_opcId}" for="opcId" />
+                        <p:inputText id="opcId" value="#{opcionesController.selected.opcId}" title="#{bundle.CreateOpcionesTitle_opcId}" required="true" requiredMessage="#{bundle.CreateOpcionesRequiredMessage_opcId}"/>
+                        <p:outputLabel value="#{bundle.CreateOpcionesLabel_opcNombre}" for="opcNombre" />
+                        <p:inputText id="opcNombre" value="#{opcionesController.selected.opcNombre}" title="#{bundle.CreateOpcionesTitle_opcNombre}" required="true" requiredMessage="#{bundle.CreateOpcionesRequiredMessage_opcNombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{opcionesController.create}" value="#{bundle.Save}" update="display,:OpcionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'OpcionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OpcionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

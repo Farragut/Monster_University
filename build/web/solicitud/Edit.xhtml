@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudEditDlg" widgetVar="SolicitudEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSolicitudTitle}">
+            <h:form id="SolicitudEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{solicitudController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_solId}" for="solId" />
+                        <p:inputText id="solId" value="#{solicitudController.selected.solId}" title="#{bundle.EditSolicitudTitle_solId}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_solId}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_estId}" for="estId" />
+                        <p:inputText id="estId" value="#{solicitudController.selected.estId}" title="#{bundle.EditSolicitudTitle_estId}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_solFecha}" for="solFecha" />
+                        <p:calendar id="solFecha" pattern="MM/dd/yyyy" value="#{solicitudController.selected.solFecha}" title="#{bundle.EditSolicitudTitle_solFecha}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_solFecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_solAprobacionJa}" for="solAprobacionJa" />
+                        <p:selectBooleanCheckbox id="solAprobacionJa" value="#{solicitudController.selected.solAprobacionJa}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_solAprobacionJa}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_solAprobacionDf}" for="solAprobacionDf" />
+                        <p:selectBooleanCheckbox id="solAprobacionDf" value="#{solicitudController.selected.solAprobacionDf}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_solAprobacionDf}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_solValorTotal}" for="solValorTotal" />
+                        <p:inputText id="solValorTotal" value="#{solicitudController.selected.solValorTotal}" title="#{bundle.EditSolicitudTitle_solValorTotal}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_solValorTotal}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_areaId}" for="areaId" />
+                        <p:selectOneMenu id="areaId" value="#{solicitudController.selected.areaId}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_areaId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{areaController.itemsAvailableSelectOne}"
+                                           var="areaIdItem"
+                                           itemValue="#{areaIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_empId}" for="empId" />
+                        <p:selectOneMenu id="empId" value="#{solicitudController.selected.empId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
+                                           var="empIdItem"
+                                           itemValue="#{empIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_rubId}" for="rubId" />
+                        <p:selectOneMenu id="rubId" value="#{solicitudController.selected.rubId}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_rubId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rubroPresupuestalController.itemsAvailableSelectOne}"
+                                           var="rubIdItem"
+                                           itemValue="#{rubIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{solicitudController.update}" value="#{bundle.Save}" update="display,:SolicitudListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SolicitudEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SolicitudEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

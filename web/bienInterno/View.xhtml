@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BienInternoViewDlg" widgetVar="BienInternoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBienInternoTitle}">
+            <h:form id="BienInternoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bienInternoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBienInternoLabel_bienIntId}"/>
+                        <h:outputText value="#{bienInternoController.selected.bienIntId}" title="#{bundle.ViewBienInternoTitle_bienIntId}"/>
+                        <h:outputText value="#{bundle.ViewBienInternoLabel_bienIntFechaEntrega}"/>
+                        <h:outputText value="#{bienInternoController.selected.bienIntFechaEntrega}" title="#{bundle.ViewBienInternoTitle_bienIntFechaEntrega}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBienInternoLabel_bienIntDireccion}"/>
+                        <h:outputText value="#{bienInternoController.selected.bienIntDireccion}" title="#{bundle.ViewBienInternoTitle_bienIntDireccion}"/>
+                        <h:outputText value="#{bundle.ViewBienInternoLabel_bienProvId}"/>
+                        <h:outputText value="#{bienInternoController.selected.bienProvId}" title="#{bundle.ViewBienInternoTitle_bienProvId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BienInternoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

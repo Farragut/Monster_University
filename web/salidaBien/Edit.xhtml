@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SalidaBienEditDlg" widgetVar="SalidaBienEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSalidaBienTitle}">
+            <h:form id="SalidaBienEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{salidaBienController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSalidaBienLabel_salBienCantidadEntregada}" for="salBienCantidadEntregada" />
+                        <p:inputText id="salBienCantidadEntregada" value="#{salidaBienController.selected.salBienCantidadEntregada}" title="#{bundle.EditSalidaBienTitle_salBienCantidadEntregada}" />
+                        <p:outputLabel value="#{bundle.EditSalidaBienLabel_salidaAlmacen}" for="salidaAlmacen" />
+                        <p:selectOneMenu id="salidaAlmacen" value="#{salidaBienController.selected.salidaAlmacen}" required="true" requiredMessage="#{bundle.EditSalidaBienRequiredMessage_salidaAlmacen}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{salidaAlmacenController.itemsAvailableSelectOne}"
+                                           var="salidaAlmacenItem"
+                                           itemValue="#{salidaAlmacenItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSalidaBienLabel_bienProveedor}" for="bienProveedor" />
+                        <p:selectOneMenu id="bienProveedor" value="#{salidaBienController.selected.bienProveedor}" required="true" requiredMessage="#{bundle.EditSalidaBienRequiredMessage_bienProveedor}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bienProveedorController.itemsAvailableSelectOne}"
+                                           var="bienProveedorItem"
+                                           itemValue="#{bienProveedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{salidaBienController.update}" value="#{bundle.Save}" update="display,:SalidaBienListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SalidaBienEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SalidaBienEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

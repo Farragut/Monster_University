@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewAction action="#{usuarioController.verificarSesion()}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/menu.css"/>
+    </h:head>
+    <h:body style="background: url('background.jpg')no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;">
+        <h:form>
+            <p:menubar>
+                <p:submenu label="Gestión de personal">
+                    <p:menuitem value="Empleado" url="/faces/empleado/List.xhtml" />
+                    <p:menuitem value="Usuario" url="/faces/usuario/List.xhtml" />
+                    <p:menuitem value="Proveedor" url="/faces/proveedor/List.xhtml" />
+                    <p:menuitem value="Opciones de perfil" url="/faces/perfilOpciones/List.xhtml" />
+                </p:submenu>
+                <p:submenu label="Gestión de almacén">
+                    <p:menuitem value="Bien interno" url="/faces/bienInterno/List.xhtml" />
+                    <p:menuitem value="Bien por proveedor" url="/faces/bienProveedor/List.xhtml" />
+                    <p:menuitem value="Detalle entrada a almacén" url="/faces/entradaAlmacen/List.xhtml" />
+                    <p:menuitem value="Salida de bien" url="/faces/salidaBien/List.xhtml" />
+                </p:submenu>
+                <p:submenu label="Gestión interna">
+                    <p:menuitem value="Área" url="/faces/area/List.xhtml" />
+                    <p:menuitem value="Estado civil" url="/faces/estadoCivil/List.xhtml" />
+                    <p:menuitem value="Opciones" url="/faces/opciones/List.xhtml" />
+                    <p:menuitem value="Perfil" url="/faces/perfil/List.xhtml" />
+                    <p:menuitem value="Rubro Presupuestal" url="/faces/rubroPresupuestal/List.xhtml" />
+                    <p:menuitem value="Unidad de Medida" url="/faces/unidadMedida/List.xhtml" />
+                </p:submenu>
+                <p:submenu label="Gestión contractual">
+                    <p:menuitem value="Cotización" url="/faces/cotizacion/List.xhtml" />
+                    <p:menuitem value="Solicitud de orden contractual" url="/faces/ordcSolicitud/List.xhtml" />
+                    <p:menuitem value="Orden Contractual" url="/faces/ordenContractual/List.xhtml" />
+                    <p:menuitem value="Solicitud" url="/faces/solicitud/List.xhtml" />
+                    <p:menuitem value="Detalle de Solicitud" url="/faces/solicitudDetalle/List.xhtml" />
+                </p:submenu>
+                <p:menuitem value="Salir" actionListener="#{usuarioController.terminarSesion()}"/>
+            </p:menubar>
+        </h:form>
+
+    </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BienInternoEditDlg" widgetVar="BienInternoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBienInternoTitle}">
+            <h:form id="BienInternoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bienInternoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBienInternoLabel_bienIntId}" for="bienIntId" />
+                        <p:inputText id="bienIntId" value="#{bienInternoController.selected.bienIntId}" title="#{bundle.EditBienInternoTitle_bienIntId}" required="true" requiredMessage="#{bundle.EditBienInternoRequiredMessage_bienIntId}"/>
+                        <p:outputLabel value="#{bundle.EditBienInternoLabel_bienIntFechaEntrega}" for="bienIntFechaEntrega" />
+                        <p:calendar id="bienIntFechaEntrega" pattern="MM/dd/yyyy" value="#{bienInternoController.selected.bienIntFechaEntrega}" title="#{bundle.EditBienInternoTitle_bienIntFechaEntrega}" required="true" requiredMessage="#{bundle.EditBienInternoRequiredMessage_bienIntFechaEntrega}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBienInternoLabel_bienIntDireccion}" for="bienIntDireccion" />
+                        <p:inputText id="bienIntDireccion" value="#{bienInternoController.selected.bienIntDireccion}" title="#{bundle.EditBienInternoTitle_bienIntDireccion}" required="true" requiredMessage="#{bundle.EditBienInternoRequiredMessage_bienIntDireccion}"/>
+                        <p:outputLabel value="#{bundle.EditBienInternoLabel_bienProvId}" for="bienProvId" />
+                        <p:selectOneMenu id="bienProvId" value="#{bienInternoController.selected.bienProvId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bienProveedorController.itemsAvailableSelectOne}"
+                                           var="bienProvIdItem"
+                                           itemValue="#{bienProvIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bienInternoController.update}" value="#{bundle.Save}" update="display,:BienInternoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BienInternoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BienInternoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

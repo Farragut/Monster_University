@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BienProveedorEditDlg" widgetVar="BienProveedorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBienProveedorTitle}">
+            <h:form id="BienProveedorEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bienProveedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_bienProvId}" for="bienProvId" />
+                        <p:inputText id="bienProvId" value="#{bienProveedorController.selected.bienProvId}" title="#{bundle.EditBienProveedorTitle_bienProvId}" required="true" requiredMessage="#{bundle.EditBienProveedorRequiredMessage_bienProvId}"/>
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_bienCantidad}" for="bienCantidad" />
+                        <p:inputText id="bienCantidad" value="#{bienProveedorController.selected.bienCantidad}" title="#{bundle.EditBienProveedorTitle_bienCantidad}" required="true" requiredMessage="#{bundle.EditBienProveedorRequiredMessage_bienCantidad}"/>
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_bienValorUnitario}" for="bienValorUnitario" />
+                        <p:inputText id="bienValorUnitario" value="#{bienProveedorController.selected.bienValorUnitario}" title="#{bundle.EditBienProveedorTitle_bienValorUnitario}" required="true" requiredMessage="#{bundle.EditBienProveedorRequiredMessage_bienValorUnitario}"/>
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_bienId}" for="bienId" />
+                        <p:selectOneMenu id="bienId" value="#{bienProveedorController.selected.bienId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bienController.itemsAvailableSelectOne}"
+                                           var="bienIdItem"
+                                           itemValue="#{bienIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_provId}" for="provId" />
+                        <p:selectOneMenu id="provId" value="#{bienProveedorController.selected.provId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="provIdItem"
+                                           itemValue="#{provIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBienProveedorLabel_uniId}" for="uniId" />
+                        <p:selectOneMenu id="uniId" value="#{bienProveedorController.selected.uniId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unidadMedidaController.itemsAvailableSelectOne}"
+                                           var="uniIdItem"
+                                           itemValue="#{uniIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bienProveedorController.update}" value="#{bundle.Save}" update="display,:BienProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BienProveedorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BienProveedorEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PerfilOpcionesViewDlg" widgetVar="PerfilOpcionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPerfilOpcionesTitle}">
+            <h:form id="PerfilOpcionesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{perfilOpcionesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPerfilOpcionesLabel_perOpcId}"/>
+                        <h:outputText value="#{perfilOpcionesController.selected.perOpcId}" title="#{bundle.ViewPerfilOpcionesTitle_perOpcId}"/>
+                        <h:outputText value="#{bundle.ViewPerfilOpcionesLabel_opcId}"/>
+                        <h:outputText value="#{perfilOpcionesController.selected.opcId}" title="#{bundle.ViewPerfilOpcionesTitle_opcId}"/>
+                        <h:outputText value="#{bundle.ViewPerfilOpcionesLabel_perId}"/>
+                        <h:outputText value="#{perfilOpcionesController.selected.perId}" title="#{bundle.ViewPerfilOpcionesTitle_perId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PerfilOpcionesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+label {
+    font-family: sans-serif;
+    color: white;
+    -webkit-transition: 0.25s;
+    transition: 0.25s;
+}
+
+a {
+    font-family: sans-serif;
+    color: #fbbc05;
+    -webkit-transition: 0.25s;
+    transition: 0.25s;
+}
+
+a:hover {
+    font-size: 115%;
+    color: #ffff56;
+}
+
+.box {
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background: #191919;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.box h1 {
+    color: white;
+    font-weight: 400;
+    text-align: center;
+}
+
+.box input[type = "text"], .box input[type = "password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 5% auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 3.5% 3%;
+    width: 80%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+}
+
+.box input[type = "submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 5% auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 3.5% 3%;
+    width: 60%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+}
+
+.box input[type = "text"]:focus, .box input[type = "password"]:focus {
+    width: 80%;
+}
+
+.box input[type = "text"]:hover, .box input[type = "password"]:hover {
+    border-color: #2ecc71;
+    font-size: 115%;
+}
+
+.box input[type = "submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 5% auto;
+    text-align: center;
+    border: 2px solid #ea4335;
+    padding: 3.5% 3%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+    cursor: pointer;
+    background: #ea4335;
+}
+
+.box input[type = "submit"]:hover {
+    font-weight: bold;
+    font-size: 105%;
+    width: 85%;
+}
+
+.wrong {
+    font-family: sans-serif;
+    color: red;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+}

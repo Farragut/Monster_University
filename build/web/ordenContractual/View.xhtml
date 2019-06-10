@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenContractualViewDlg" widgetVar="OrdenContractualViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrdenContractualTitle}">
+            <h:form id="OrdenContractualViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordenContractualController.selected != null}">
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_ordcId}"/>
+                        <h:outputText value="#{ordenContractualController.selected.ordcId}" title="#{bundle.ViewOrdenContractualTitle_ordcId}"/>
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_ordcFecha}"/>
+                        <h:outputText value="#{ordenContractualController.selected.ordcFecha}" title="#{bundle.ViewOrdenContractualTitle_ordcFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_ordcFechaEntrega}"/>
+                        <h:outputText value="#{ordenContractualController.selected.ordcFechaEntrega}" title="#{bundle.ViewOrdenContractualTitle_ordcFechaEntrega}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_ordcValorTotal}"/>
+                        <h:outputText value="#{ordenContractualController.selected.ordcValorTotal}" title="#{bundle.ViewOrdenContractualTitle_ordcValorTotal}"/>
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_ordcAprobacionDf}"/>
+                        <p:selectBooleanCheckbox value="#{ordenContractualController.selected.ordcAprobacionDf}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewOrdenContractualLabel_provId}"/>
+                        <h:outputText value="#{ordenContractualController.selected.provId}" title="#{bundle.ViewOrdenContractualTitle_provId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="OrdenContractualViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

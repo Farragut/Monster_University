@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="loginStyle.css"/>
+        <title>Acceso</title>
+    </h:head>
+
+    <body style="background: url('background.jpg')no-repeat center center fixed; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;">
+        <h:form prependId="false" class="box">
+            <p:growl id="growl" life="3000"/> 
+            <h1>LOGIN</h1>
+            <h:inputText
+                a:placeholder= "Usuario" autocomplete="off" required="true" requiredMessage="Debe ingresar su usuario" value="#{usuarioController.usuario}"/>
+            <h:inputSecret
+                a:placeholder= "Contraseña" required="true" requiredMessage="Debe ingresar su contraseña" value="#{usuarioController.password}"/>
+            <p:commandButton value="Acceder" actionListener="#{usuarioController.verficarAccceso()}" update="growl" />
+            <br/>
+            <br/>
+            <h:commandLink
+                value="¿Olvidaste tu contraseña?"
+                action="errorPage?faces-redirect=true" />
+        </h:form>
+    </body>
+</html>

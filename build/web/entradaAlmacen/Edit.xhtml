@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EntradaAlmacenEditDlg" widgetVar="EntradaAlmacenEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEntradaAlmacenTitle}">
+            <h:form id="EntradaAlmacenEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{entradaAlmacenController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEntradaAlmacenLabel_entradaAlmacenPK_entId}" for="entradaAlmacenPK_entId" />
+                        <p:inputText id="entradaAlmacenPK_entId" value="#{entradaAlmacenController.selected.entradaAlmacenPK.entId}" title="#{bundle.EditEntradaAlmacenTitle_entradaAlmacenPK_entId}" required="true" requiredMessage="#{bundle.EditEntradaAlmacenRequiredMessage_entradaAlmacenPK_entId}"/>
+                        <p:outputLabel value="#{bundle.EditEntradaAlmacenLabel_entNumeroFactura}" for="entNumeroFactura" />
+                        <p:inputText id="entNumeroFactura" value="#{entradaAlmacenController.selected.entNumeroFactura}" title="#{bundle.EditEntradaAlmacenTitle_entNumeroFactura}" required="true" requiredMessage="#{bundle.EditEntradaAlmacenRequiredMessage_entNumeroFactura}"/>
+                        <p:outputLabel value="#{bundle.EditEntradaAlmacenLabel_entFecha}" for="entFecha" />
+                        <p:calendar id="entFecha" pattern="MM/dd/yyyy" value="#{entradaAlmacenController.selected.entFecha}" title="#{bundle.EditEntradaAlmacenTitle_entFecha}" required="true" requiredMessage="#{bundle.EditEntradaAlmacenRequiredMessage_entFecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEntradaAlmacenLabel_entValorTotal}" for="entValorTotal" />
+                        <p:inputText id="entValorTotal" value="#{entradaAlmacenController.selected.entValorTotal}" title="#{bundle.EditEntradaAlmacenTitle_entValorTotal}" required="true" requiredMessage="#{bundle.EditEntradaAlmacenRequiredMessage_entValorTotal}"/>
+                        <p:outputLabel value="#{bundle.EditEntradaAlmacenLabel_proveedor}" for="proveedor" />
+                        <p:selectOneMenu id="proveedor" value="#{entradaAlmacenController.selected.proveedor}" required="true" requiredMessage="#{bundle.EditEntradaAlmacenRequiredMessage_proveedor}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="proveedorItem"
+                                           itemValue="#{proveedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{entradaAlmacenController.update}" value="#{bundle.Save}" update="display,:EntradaAlmacenListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EntradaAlmacenEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EntradaAlmacenEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

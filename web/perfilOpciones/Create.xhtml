@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PerfilOpcionesCreateDlg" widgetVar="PerfilOpcionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePerfilOpcionesTitle}">
+            <h:form id="PerfilOpcionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{perfilOpcionesController.selected != null}">
+                        <p:outputLabel value="Perfil" for="perId" />
+                        <p:selectOneMenu id="perId" value="#{perfilOpcionesController.selected.perId}" >
+                            <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
+                                           var="perIdItem"
+                                           itemLabel="#{perIdItem.perDescripcion}"
+                                           itemValue="#{perIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:pickList id="opcionesNombres" value="#{usuarioController.opciones}" 
+                                var="opc" itemValue="#{opc}" converter="opcionConverter"
+                                itemLabel="#{opc.opcNombre}"/>
+                </h:panelGroup>
+                <p:commandButton actionListener="#{perfilOpcionesController.create}" value="#{bundle.Save}" update="display,:PerfilOpcionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'PerfilOpcionesCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" onclick="PerfilOpcionesCreateDialog.hide()"/>
+                <p:commandButton value="Imprimir" actionListener="#{usuarioController.mostrar()}"/>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionCreateDlg" widgetVar="CotizacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCotizacionTitle}">
+            <h:form id="CotizacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cotizacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCotizacionLabel_cotId}" for="cotId" />
+                        <p:inputText id="cotId" value="#{cotizacionController.selected.cotId}" title="#{bundle.CreateCotizacionTitle_cotId}" required="true" requiredMessage="#{bundle.CreateCotizacionRequiredMessage_cotId}"/>
+                        <p:outputLabel value="#{bundle.CreateCotizacionLabel_cotAprobacion}" for="cotAprobacion" />
+                        <p:selectBooleanCheckbox id="cotAprobacion" value="#{cotizacionController.selected.cotAprobacion}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_cotAprobacion}"/>
+                        <p:outputLabel value="#{bundle.CreateCotizacionLabel_solId}" for="solId" />
+                        <p:selectOneMenu id="solId" value="#{cotizacionController.selected.solId}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_solId}">
+                            <f:selectItems value="#{solicitudController.itemsAvailableSelectOne}"
+                                           var="solIdItem"
+                                           itemValue="#{solIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cotizacionController.create}" value="#{bundle.Save}" update="display,:CotizacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'CotizacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CotizacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

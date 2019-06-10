@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RubroPresupuestalCreateDlg" widgetVar="RubroPresupuestalCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRubroPresupuestalTitle}">
+            <h:form id="RubroPresupuestalCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rubroPresupuestalController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRubroPresupuestalLabel_rubId}" for="rubId" />
+                        <p:inputText id="rubId" value="#{rubroPresupuestalController.selected.rubId}" title="#{bundle.CreateRubroPresupuestalTitle_rubId}" required="true" requiredMessage="#{bundle.CreateRubroPresupuestalRequiredMessage_rubId}"/>
+                        <p:outputLabel value="#{bundle.CreateRubroPresupuestalLabel_rubDescripcion}" for="rubDescripcion" />
+                        <p:inputText id="rubDescripcion" value="#{rubroPresupuestalController.selected.rubDescripcion}" title="#{bundle.CreateRubroPresupuestalTitle_rubDescripcion}" required="true" requiredMessage="#{bundle.CreateRubroPresupuestalRequiredMessage_rubDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rubroPresupuestalController.create}" value="#{bundle.Save}" update="display,:RubroPresupuestalListForm:datalist,:growl" oncomplete="handleSubmit(args,'RubroPresupuestalCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RubroPresupuestalCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
