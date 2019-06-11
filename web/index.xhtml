@@ -20,37 +20,39 @@
             background-size: cover;">
         <h:form>
             <p:menubar>
-                <p:submenu label="Gestión de personal">
-                    <p:menuitem value="Empleado" url="/faces/empleado/List.xhtml" />
-                    <p:menuitem value="Usuario" url="/faces/usuario/List.xhtml" />
-                    <p:menuitem value="Proveedor" url="/faces/proveedor/List.xhtml" />
-                    <p:menuitem value="Opciones de perfil" url="/faces/perfilOpciones/List.xhtml" />
+                <p:submenu rendered="#{usuarioController.opcionCheck(8) || usuarioController.opcionCheck(24) || usuarioController.opcionCheck(16) || usuarioController.opcionCheck(15)}" label="Gestión de personal" >
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(8)}" value="Empleado" url="/Monster_University/faces/empleado/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(24)}" value="Usuario" url="/Monster_University/faces/usuario/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(16)}" value="Proveedor" url="/Monster_University/faces/proveedor/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(15)}" value="Opciones de perfil" url="/Monster_University/faces/perfilOpciones/List.xhtml" />
                 </p:submenu>
-                <p:submenu label="Gestión de almacén">
-                    <p:menuitem value="Bien interno" url="/faces/bienInterno/List.xhtml" />
-                    <p:menuitem value="Bien por proveedor" url="/faces/bienProveedor/List.xhtml" />
-                    <p:menuitem value="Detalle entrada a almacén" url="/faces/entradaAlmacen/List.xhtml" />
-                    <p:menuitem value="Salida de bien" url="/faces/salidaBien/List.xhtml" />
+                <p:submenu rendered="#{usuarioController.opcionCheck(4) || usuarioController.opcionCheck(5) || usuarioController.opcionCheck(7) || usuarioController.opcionCheck(20)}" label="Gestión de almacén">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(4)}" value="Bien interno" url="/Monster_University/faces/bienInterno/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(5)}" value="Bien por proveedor" url="/Monster_University/faces/bienProveedor/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(7)}" value="Detalle entrada a almacén" url="/Monster_University/faces/entradaAlmacen/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(20)}" value="Salida de bien" url="/Monster_University/faces/salidaBien/List.xhtml" />
                 </p:submenu>
-                <p:submenu label="Gestión interna">
-                    <p:menuitem value="Área" url="/faces/area/List.xhtml" />
-                    <p:menuitem value="Estado civil" url="/faces/estadoCivil/List.xhtml" />
-                    <p:menuitem value="Opciones" url="/faces/opciones/List.xhtml" />
-                    <p:menuitem value="Perfil" url="/faces/perfil/List.xhtml" />
-                    <p:menuitem value="Rubro Presupuestal" url="/faces/rubroPresupuestal/List.xhtml" />
-                    <p:menuitem value="Unidad de Medida" url="/faces/unidadMedida/List.xhtml" />
+                <p:submenu rendered="#{usuarioController.opcionCheck(1) || usuarioController.opcionCheck(10) || usuarioController.opcionCheck(11) || usuarioController.opcionCheck(14)|| usuarioController.opcionCheck(18) || usuarioController.opcionCheck(23)}" label="Gestión interna">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(1)}" value="Área" url="/Monster_University/faces/area/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(10)}" value="Estado civil" url="/Monster_University/faces/estadoCivil/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(11)}" value="Opciones" url="/Monster_University/faces/opciones/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(14)}" value="Perfil" url="/Monster_University/faces/perfil/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(18)}" value="Rubro Presupuestal" url="/Monster_University/faces/rubroPresupuestal/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(23)}" value="Unidad de Medida" url="/Monster_University/faces/unidadMedida/List.xhtml" />
                 </p:submenu>
-                <p:submenu label="Gestión contractual">
-                    <p:menuitem value="Cotización" url="/faces/cotizacion/List.xhtml" />
-                    <p:menuitem value="Solicitud de orden contractual" url="/faces/ordcSolicitud/List.xhtml" />
-                    <p:menuitem value="Orden Contractual" url="/faces/ordenContractual/List.xhtml" />
-                    <p:menuitem value="Solicitud" url="/faces/solicitud/List.xhtml" />
-                    <p:menuitem value="Detalle de Solicitud" url="/faces/solicitudDetalle/List.xhtml" />
+                <p:submenu rendered="#{usuarioController.opcionCheck(6) || usuarioController.opcionCheck(13) || usuarioController.opcionCheck(21) || usuarioController.opcionCheck(22)}" label="Gestión contractual">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(6)}" value="Cotización" url="/Monster_University/faces/cotizacion/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(13)}" value="Solicitud de orden contractual" url="/Monster_University/faces/ordcSolicitud/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(13)}" value="Orden Contractual" url="/Monster_University/faces/ordenContractual/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(21)}" value="Solicitud" url="/Monster_University/faces/solicitud/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(22)}" value="Detalle de Solicitud" url="/Monster_University/faces/solicitudDetalle/List.xhtml" />
                 </p:submenu>
                 <p:menuitem value="Salir" actionListener="#{usuarioController.terminarSesion()}"/>
             </p:menubar>
         </h:form>
 
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 
 

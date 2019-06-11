@@ -21,7 +21,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:pickList id="opcionesNombres" value="#{usuarioController.opciones}" 
-                                var="opc" itemValue="#{opc}" converter="opcionConverter"
+                                var="opc" itemValue="#{opc}" converter="#{opcionConverter}"
                                 itemLabel="#{opc.opcNombre}"/>
                 </h:panelGroup>
                 <p:commandButton actionListener="#{perfilOpcionesController.create}" value="#{bundle.Save}" update="display,:PerfilOpcionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'PerfilOpcionesCreateDialog');"/>

@@ -4,11 +4,15 @@ import com.monsteruniversity.modelo.PerfilOpciones;
 import com.monsteruniversity.controlador.util.JsfUtil;
 import com.monsteruniversity.controlador.util.JsfUtil.PersistAction;
 import com.monsteruniversity.facade.PerfilOpcionesFacade;
+import com.monsteruniversity.modelo.Opciones;
+import com.monsteruniversity.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -17,15 +21,32 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.DualListModel;
 
 @Named("perfilOpcionesController")
 @SessionScoped
 public class PerfilOpcionesController implements Serializable {
-    
+
+    @EJB
+    private com.monsteruniversity.facade.OpcionesFacade opcFacade;
     @EJB
     private com.monsteruniversity.facade.PerfilOpcionesFacade ejbFacade;
+
+    private DualListModel<Opciones> opciones = new DualListModel<>();
     private List<PerfilOpciones> items = null;
+    private List<Opciones> opcSource;
+    private List<Opciones> opcTarget;
     private PerfilOpciones selected;
+
+    @PostConstruct
+    public void init() {
+        //Names Access
+        opcSource = opcFacade.findAll();
+        opcTarget = new ArrayList<>();
+        if (opcSource != null) {
+            this.opciones = new DualListModel<>(opcSource, opcTarget);
+        }
+    }
 
     public PerfilOpcionesController() {
     }
@@ -61,6 +82,13 @@ public class PerfilOpcionesController implements Serializable {
         }
     }
 
+    public void savePickList() {
+        for (Opciones opcion : opcTarget) {
+            selected.setOpcId(opcion);
+            create();
+        }
+    }
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PerfilOpcionesUpdated"));
     }
@@ -78,6 +106,47 @@ public class PerfilOpcionesController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public DualListModel<Opciones> getOpciones() {
+        return opciones;
+    }
+
+    public void setOpciones(DualListModel<Opciones> opciones) {
+        this.opciones = opciones;
+    }
+
+    public List<Opciones> getOpcSource() {
+        return opcSource;
+    }
+
+    public void setOpcSource(List<Opciones> opcSource) {
+        this.opcSource = opcSource;
+    }
+
+    public List<Opciones> getOpcTarget() {
+        return opcTarget;
+    }
+
+    public void setOpcTarget(List<Opciones> opcTarget) {
+        this.opcTarget = opcTarget;
+    }
+    public ArrayList<Opciones> opcionesPerfil(Usuario user){
+        ArrayList<Opciones> opcionesPerfil = new ArrayList<>();
+        
+        items = ejbFacade.findAll();
+        for(PerfilOpciones perOpc : items){
+            if(perOpc.getPerId().getPerId()==user.getPerId().getPerId()){
+                opcionesPerfil.add(perOpc.getOpcId());
+            }
+        }
+        return opcionesPerfil;
+    }
+    public void mostrar() {
+        System.out.println("Opciones: " + opcTarget.size());
+        for (int i = 0; i < opcTarget.size(); i++) {
+            System.out.println("Opcion: " + opcTarget.get(i).getOpcNombre());
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

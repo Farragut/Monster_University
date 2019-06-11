@@ -6,7 +6,6 @@ import com.monsteruniversity.controlador.util.JsfUtil.PersistAction;
 import com.monsteruniversity.facade.UsuarioFacade;
 import com.monsteruniversity.modelo.Opciones;
 import java.io.IOException;
-
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,7 +24,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.context.RequestContext;
+import javax.inject.Inject;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DualListModel;
 
 @Named("usuarioController")
@@ -36,13 +36,17 @@ public class UsuarioController implements Serializable {
     private String password = null;
     private Usuario usuarioAutenticado;
     private DualListModel<Opciones> opciones = new DualListModel<>();
-
+    
+    @Inject
+    private PerfilOpcionesController perfilOpcionController;
+    
     @EJB
     private com.monsteruniversity.facade.UsuarioFacade ejbFacade;
     @EJB
     private com.monsteruniversity.facade.OpcionesFacade opcFacade;
     private List<Usuario> items = null;
     private List<Opciones> opcSource;
+    private ArrayList<Opciones> opcionesPerfil;
     private List<Opciones> opcTarget;
     private Usuario selected;
 
@@ -229,6 +233,16 @@ public class UsuarioController implements Serializable {
         }
 
     }
+    
+    public boolean opcionCheck(int opcion) {
+        opcionesPerfil = perfilOpcionController.opcionesPerfil(this.usuarioAutenticado);
+        for(Opciones auxOpciones : opcionesPerfil){
+            if(auxOpciones.getOpcId()==opcion){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean login() throws NoSuchAlgorithmException {
         usuarioAutenticado = ejbFacade.iniciarSesion(usuario, generateHash(password));
@@ -241,9 +255,9 @@ public class UsuarioController implements Serializable {
 
     public void verficarAccceso() throws IOException, NoSuchAlgorithmException {
         if (login()) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/MonsterPrimefaces5/faces/index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/index.xhtml");
         } else {
-            RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos inválidos", "Verifique su usuario y contraseña"));
+            PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos inválidos", "Verifique su usuario y contraseña"));
         }
     }
 
@@ -261,7 +275,7 @@ public class UsuarioController implements Serializable {
     public void verificarSesion() throws IOException {
         System.out.println("Usuario: " + usuario);
         if (usuario == null) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/MonsterPrimefaces5/faces/login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/faces/login.xhtml");
         }
     }
 
@@ -269,11 +283,11 @@ public class UsuarioController implements Serializable {
         usuario = null;
         FacesContext.getCurrentInstance().getExternalContext().redirect("/MonsterPrimefaces5/faces/login.xhtml");
     }
-    
+
     public void mostrar() {
-        System.out.println("Opciones: "+opcTarget.size());
-        for (int i=0; i<opcTarget.size();i++){
-            System.out.println("Opcion: "+opcTarget.get(i).getOpcNombre());
+        System.out.println("Opciones: " + opcTarget.size());
+        for (int i = 0; i < opcTarget.size(); i++) {
+            System.out.println("Opcion: " + opcTarget.get(i).getOpcNombre());
         }
     }
 
