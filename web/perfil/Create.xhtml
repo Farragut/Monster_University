@@ -12,9 +12,9 @@
             <h:form id="PerfilCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{perfilController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePerfilLabel_perId}" for="perId" />
+                        <p:outputLabel value="Código de perfil" for="perId" />
                         <p:inputText id="perId" value="#{perfilController.selected.perId}" title="#{bundle.CreatePerfilTitle_perId}" required="true" requiredMessage="#{bundle.CreatePerfilRequiredMessage_perId}"/>
-                        <p:outputLabel value="#{bundle.CreatePerfilLabel_perDescripcion}" for="perDescripcion" />
+                        <p:outputLabel value="Descripción del perfil" for="perDescripcion" />
                         <p:inputText id="perDescripcion" value="#{perfilController.selected.perDescripcion}" title="#{bundle.CreatePerfilTitle_perDescripcion}" required="true" requiredMessage="#{bundle.CreatePerfilRequiredMessage_perDescripcion}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{perfilController.create}" value="#{bundle.Save}" update="display,:PerfilListForm:datalist,:growl" oncomplete="handleSubmit(args,'PerfilCreateDialog');"/>

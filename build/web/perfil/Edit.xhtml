@@ -12,9 +12,9 @@
             <h:form id="PerfilEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{perfilController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPerfilLabel_perId}" for="perId" />
+                        <p:outputLabel value="Código del perfil" for="perId" />
                         <p:inputText id="perId" value="#{perfilController.selected.perId}" title="#{bundle.EditPerfilTitle_perId}" required="true" requiredMessage="#{bundle.EditPerfilRequiredMessage_perId}"/>
-                        <p:outputLabel value="#{bundle.EditPerfilLabel_perDescripcion}" for="perDescripcion" />
+                        <p:outputLabel value="Descripción del perfil" for="perDescripcion" />
                         <p:inputText id="perDescripcion" value="#{perfilController.selected.perDescripcion}" title="#{bundle.EditPerfilTitle_perDescripcion}" required="true" requiredMessage="#{bundle.EditPerfilRequiredMessage_perDescripcion}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{perfilController.update}" value="#{bundle.Save}" update="display,:PerfilListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PerfilEditDialog');"/>

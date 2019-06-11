@@ -12,9 +12,9 @@
             <h:form id="AreaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{areaController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditAreaLabel_areaId}" for="areaId" />
+                        <p:outputLabel value="Código del área" for="areaId" />
                         <p:inputText id="areaId" value="#{areaController.selected.areaId}" title="#{bundle.EditAreaTitle_areaId}" required="true" requiredMessage="#{bundle.EditAreaRequiredMessage_areaId}"/>
-                        <p:outputLabel value="#{bundle.EditAreaLabel_areaDescripcion}" for="areaDescripcion" />
+                        <p:outputLabel value="Descripción del área" for="areaDescripcion" />
                         <p:inputText id="areaDescripcion" value="#{areaController.selected.areaDescripcion}" title="#{bundle.EditAreaTitle_areaDescripcion}" required="true" requiredMessage="#{bundle.EditAreaRequiredMessage_areaDescripcion}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{areaController.update}" value="#{bundle.Save}" update="display,:AreaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AreaEditDialog');"/>

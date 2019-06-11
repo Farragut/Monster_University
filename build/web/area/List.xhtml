@@ -10,12 +10,12 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAreaTitle}"></h:outputText>
+            <h:outputText value="LISTA DE ÁREAS"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="AreaListForm">
-                <p:panel header="#{bundle.ListAreaTitle}">
+                <p:panel header="LISTA DE ÁREAS">
                     <p:dataTable id="datalist" value="#{areaController.items}" var="item"
                                  selectionMode="single" selection="#{areaController.selected}"
                                  paginator="true"
@@ -29,13 +29,13 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAreaTitle_areaId}"/>
+                                <h:outputText value="Código del área"/>
                             </f:facet>
                             <h:outputText value="#{item.areaId}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAreaTitle_areaDescripcion}"/>
+                                <h:outputText value="Descripción del área"/>
                             </f:facet>
                             <h:outputText value="#{item.areaDescripcion}"/>
                         </p:column>

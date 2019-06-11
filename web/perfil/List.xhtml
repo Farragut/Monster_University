@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="PerfilListForm">
-                <p:panel header="#{bundle.ListPerfilTitle}">
+                <p:panel header="LISTA DE PERFILES">
                     <p:dataTable id="datalist" value="#{perfilController.items}" var="item"
                                  selectionMode="single" selection="#{perfilController.selected}"
                                  paginator="true"
@@ -29,13 +29,13 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPerfilTitle_perId}"/>
+                                <h:outputText value="Código de perfil"/>
                             </f:facet>
                             <h:outputText value="#{item.perId}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPerfilTitle_perDescripcion}"/>
+                                <h:outputText value="Descripción del perfil"/>
                             </f:facet>
                             <h:outputText value="#{item.perDescripcion}"/>
                         </p:column>

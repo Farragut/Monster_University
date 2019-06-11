@@ -12,9 +12,9 @@
             <h:form id="AreaViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{areaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAreaLabel_areaId}"/>
+                        <h:outputText value="Código del área"/>
                         <h:outputText value="#{areaController.selected.areaId}" title="#{bundle.ViewAreaTitle_areaId}"/>
-                        <h:outputText value="#{bundle.ViewAreaLabel_areaDescripcion}"/>
+                        <h:outputText value="Descripción del área"/>
                         <h:outputText value="#{areaController.selected.areaDescripcion}" title="#{bundle.ViewAreaTitle_areaDescripcion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AreaViewDialog.hide()"/>

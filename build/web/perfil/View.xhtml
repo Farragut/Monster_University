@@ -12,9 +12,9 @@
             <h:form id="PerfilViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{perfilController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPerfilLabel_perId}"/>
+                        <h:outputText value="Código del perfil"/>
                         <h:outputText value="#{perfilController.selected.perId}" title="#{bundle.ViewPerfilTitle_perId}"/>
-                        <h:outputText value="#{bundle.ViewPerfilLabel_perDescripcion}"/>
+                        <h:outputText value="Descripción del perfil"/>
                         <h:outputText value="#{perfilController.selected.perDescripcion}" title="#{bundle.ViewPerfilTitle_perDescripcion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PerfilViewDialog.hide()"/>
