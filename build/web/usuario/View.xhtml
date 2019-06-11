@@ -12,16 +12,12 @@
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuId}"/>
+                        <h:outputText value="Código del usuario"/>
                         <h:outputText value="#{usuarioController.selected.usuId}" title="#{bundle.ViewUsuarioTitle_usuId}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuNombre}"/>
+                        <h:outputText value="Nombre del usuario"/>
                         <h:outputText value="#{usuarioController.selected.usuNombre}" title="#{bundle.ViewUsuarioTitle_usuNombre}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuPassword}"/>
+                        <h:outputText value="Contraseña"/>
                         <h:outputText value="#{usuarioController.selected.usuPassword}" title="#{bundle.ViewUsuarioTitle_usuPassword}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_empId}"/>
-                        <h:outputText value="#{usuarioController.selected.empId}" title="#{bundle.ViewUsuarioTitle_empId}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_perId}"/>
-                        <h:outputText value="#{usuarioController.selected.perId}" title="#{bundle.ViewUsuarioTitle_perId}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>

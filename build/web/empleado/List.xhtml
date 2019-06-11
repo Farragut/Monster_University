@@ -93,19 +93,20 @@
                             <f:facet name="header">
                                 <h:outputText value="Área de trabajo"/>
                             </f:facet>
-                            <h:outputText value="#{item.areaId}"/>
+                            <h:outputText value="#{item.areaId.areaDescripcion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Estado civil"/>
                             </f:facet>
-                            <h:outputText value="#{item.estId}"/>
+                            <h:outputText value="#{item.estId.estDescripcion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Código"/>
+                                <h:outputText value="Nombre del jefe"/>
                             </f:facet>
-                            <h:outputText value="#{item.jefeId}"/>
+                            <h:outputText value="#{item.jefeId.empNombre}"/>
+                            <h:outputText value=" #{item.jefeId.empApellido}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Crear" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
