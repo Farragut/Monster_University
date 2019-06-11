@@ -27,23 +27,18 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
+                      
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPerfilOpcionesTitle_perOpcId}"/>
+                                <h:outputText value="Opción"/>
                             </f:facet>
-                            <h:outputText value="#{item.perOpcId}"/>
+                            <h:outputText value="#{item.opcId.opcNombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPerfilOpcionesTitle_opcId}"/>
+                                <h:outputText value="Perfil"/>
                             </f:facet>
-                            <h:outputText value="#{item.opcId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPerfilOpcionesTitle_perId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.perId}"/>
+                            <h:outputText value="#{item.perId.perDescripcion}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{perfilOpcionesController.prepareCreate}" update=":PerfilOpcionesCreateForm" oncomplete="PF('PerfilOpcionesCreateDialog').show()" action="#{usuarioController.init()}"/>
