@@ -11,7 +11,9 @@
         <p:dialog id="EmpleadoViewDlg" widgetVar="EmpleadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmpleadoTitle}">
             <h:form id="EmpleadoViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
+                    <p:panelGrid columns="1" rendered="#{empleadoController.selected != null}">
+                        
+                        <p:panelGrid columns="2">
                         <h:outputText value="Cédula"/>
                         <h:outputText value="#{empleadoController.selected.empCedula}" title="#{bundle.ViewEmpleadoTitle_empCedula}"/>
                         <h:outputText value="Nombre"/>
@@ -20,8 +22,8 @@
                         <h:outputText value="#{empleadoController.selected.empApellido}" title="#{bundle.ViewEmpleadoTitle_empApellido}"/>
                         <h:outputText value="Estado"/>
                         <p:selectBooleanCheckbox value="#{empleadoController.selected.empEstado}" disabled="true"/>
-                    </p:panelGrid>
-<!--                    <p:tabView dynamic="true" rendered="true" >
+                        </p:panelGrid>
+                    <p:tabView dynamic="true" rendered="true" >
                         <p:tab title="Datos específicos">
                             <p:panelGrid columns="2" style="margin-left: 25%;">
                                 <h:outputText value="Género"/>
@@ -54,8 +56,9 @@
                                               title="#{bundle.ViewEmpleadoTitle_jefeId}"/>
                             </p:panelGrid>
                         </p:tab>
-                    </p:tabView>-->
+                    </p:tabView>
                     <p:commandButton value="Cerrar" onclick="EmpleadoViewDialog.hide()" style="margin-left: 45%;"/>
+                    </p:panelGrid>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

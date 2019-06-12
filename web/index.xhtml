@@ -47,12 +47,11 @@
                     <p:menuitem rendered="#{usuarioController.opcionCheck(21)}" value="Solicitud" url="/Monster_University/faces/solicitud/List.xhtml" />
                     <p:menuitem rendered="#{usuarioController.opcionCheck(22)}" value="Detalle de Solicitud" url="/Monster_University/faces/solicitudDetalle/List.xhtml" />
                 </p:submenu>
+                <p:menuitem value="Cambio de contraseña" url="/Monster_University/faces/newPass.xhtml"/>
                 <p:menuitem value="Salir" actionListener="#{usuarioController.terminarSesion()}"/>
             </p:menubar>
         </h:form>
 
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 
 

@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 09/05/2019, 12:58:54
+    Author     : Reaper
+*/
+
+.cuadro {
+    margin-top: 15%;
+    margin-left: 40%;
+}
+
+html { 
+  background: url("/JavaWeb_MVC_Banquito/resources/img/1.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

@@ -11,6 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.persistence.Query;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DualListModel;
 
@@ -36,10 +45,12 @@ public class UsuarioController implements Serializable {
     private String password = null;
     private Usuario usuarioAutenticado;
     private DualListModel<Opciones> opciones = new DualListModel<>();
-    
+    private String newPassword = null;
+    private String antPassword = null;
+    private String repPassword = null;
     @Inject
     private PerfilOpcionesController perfilOpcionController;
-    
+
     @EJB
     private com.monsteruniversity.facade.UsuarioFacade ejbFacade;
     @EJB
@@ -49,6 +60,7 @@ public class UsuarioController implements Serializable {
     private ArrayList<Opciones> opcionesPerfil;
     private List<Opciones> opcTarget;
     private Usuario selected;
+    private Usuario usuarioPass;
 
     @PostConstruct
     public void init() {
@@ -77,6 +89,30 @@ public class UsuarioController implements Serializable {
 
     public void setOpcTarget(List<Opciones> opcTarget) {
         this.opcTarget = opcTarget;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public String getRepPassword() {
+        return repPassword;
+    }
+
+    public void setRepPassword(String repPassword) {
+        this.repPassword = repPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getAntPassword() {
+        return antPassword;
+    }
+
+    public void setAntPassword(String antPassword) {
+        this.antPassword = antPassword;
     }
 
     public void setOpciones(DualListModel<Opciones> opciones) {
@@ -148,6 +184,33 @@ public class UsuarioController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public Usuario obtenerDatosUsu() throws NoSuchAlgorithmException {
+        usuarioPass = ejbFacade.obtenerEmpId(usuario);
+        usuarioPass.setUsuPassword(generateHash(newPassword));
+        return usuarioPass;
+    }
+
+    public String randomPass() {
+        Random r = new Random();
+        int valorDado = r.nextInt();
+        System.out.println("PASS: " + valorDado);
+        return valorDado + "";
+    }
+
+    public void cambiarPass() {
+        try {
+            selected = obtenerDatosUsu();
+            String pass = randomPass();
+            selected.setUsuPassword(generateHash(pass));
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+            enviarConGMail("rudelhuancas04@gmail.com", "Cambio de contraseña", "Su contraseña ha sido cambiada\nSu contraseña temporal es:" + pass + "\nSi no fue realizado por ud. contáctese con el administrador.");
+            PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos actualizados", "Datos actualizados correctamente!!"));
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -238,11 +301,11 @@ public class UsuarioController implements Serializable {
         }
 
     }
-    
+
     public boolean opcionCheck(int opcion) {
         opcionesPerfil = perfilOpcionController.opcionesPerfil(this.usuarioAutenticado);
-        for(Opciones auxOpciones : opcionesPerfil){
-            if(auxOpciones.getOpcId()==opcion){
+        for (Opciones auxOpciones : opcionesPerfil) {
+            if (auxOpciones.getOpcId() == opcion) {
                 return true;
             }
         }
@@ -286,13 +349,83 @@ public class UsuarioController implements Serializable {
 
     public void terminarSesion() throws IOException {
         usuario = null;
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/MonsterPrimefaces5/faces/login.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/");
     }
 
     public void mostrar() {
         System.out.println("Opciones: " + opcTarget.size());
         for (int i = 0; i < opcTarget.size(); i++) {
             System.out.println("Opcion: " + opcTarget.get(i).getOpcNombre());
+        }
+    }
+
+    public void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+        // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+        String remitente = "mfnavarrete3";  //Para la dirección nomcuenta@gmail.com
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", "Semperfi1");    //La clave de la cuenta
+        props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+        props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+        props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress(remitente));
+            InternetAddress[] addresses = InternetAddress.parse(destinatario);//one or more addresses
+            message.addRecipients(Message.RecipientType.TO, addresses);
+            message.setSubject(asunto);
+            message.setText(cuerpo);
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", remitente, "Semperfi1");
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (MessagingException me) {
+            me.printStackTrace();   //Si se produce un error
+        }
+    }
+
+    public void back() throws IOException {
+        System.out.println("INDEX");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/index.xhtml");
+    }
+
+    public boolean validaCedula(String x) {
+        int suma = 0;
+        if (x.length() == 9) {
+            System.out.println("Ingrese su cedula de 10 digitos");
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
+                }
+            }
+
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1)))) {
+                return true;
+            } else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

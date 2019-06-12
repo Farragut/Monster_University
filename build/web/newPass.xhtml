@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewAction action="#{usuarioController.verificarSesion()}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/menu.css"/>
+    </h:head>
+    <h:body>
+        <h:form  id="cssmenu">
+            <h:form>
+                <p:growl id="growl" life="3000"/> 
+                <p:panelGrid columns="2" id="pGrid" class="cuadro">
+                    <p:outputLabel value="Usuario" for="user"/>
+                    <p:outputLabel id="user" value="#{usuarioController.usuario}"/>
+                    <p:outputLabel value="Contraseña Antigua" for="passAn"/>
+                    <p:password required="true" id="passAn" value="#{usuarioController.antPassword}"/>
+                    <p:outputLabel value="Contraseña Nueva" for="passNu"/>
+
+                    <p:password required="true" id="passNu" value="#{usuarioController.newPassword}" feedback="true" 
+                                weakLabel="Contraseña débil" goodLabel="Contraseña adecuada" strongLabel="Contraseña fuerte" 
+                                inline="true" promptLabel="Contraseña" match="repPassNu" validatorMessage="Contraseñas diferentes"/>
+
+
+                    <p:outputLabel value="Repetir Contraseña Nueva" for="repPassNu"/>
+                    <p:password required="true" id="repPassNu" value="#{usuarioController.repPassword}"/>
+                    
+                    <h:commandLink value="Volver" action="index?faces-redirect=true"/>
+                    <p:commandButton  icon="ui-icon-key" actionListener="#{usuarioController.cambiarPass()}" value="Cambiar contraseña" update="pGrid, growl"/>
+                </p:panelGrid>
+            </h:form>
+
+        </h:form>
+    </h:body>
+</html>

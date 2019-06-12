@@ -40,4 +40,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return null;
     }
     
+    public Usuario obtenerEmpId(String user) {
+        System.out.println("######## USUARIO ##########");
+        Query q = em.createNamedQuery("Usuario.findByUsuNombre", Usuario.class).setParameter("usuNombre", user);
+        List<Usuario> listado = q.getResultList();
+        if (!listado.isEmpty()) {
+            System.out.println("USUARIO: " + listado.get(0).getEmpId());
+            return listado.get(0);
+        }
+        return null;
+    }
+    
 }
