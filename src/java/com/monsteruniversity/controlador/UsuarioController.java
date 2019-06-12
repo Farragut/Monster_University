@@ -33,7 +33,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.persistence.Query;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DualListModel;
 
@@ -41,6 +40,7 @@ import org.primefaces.model.DualListModel;
 @SessionScoped
 public class UsuarioController implements Serializable {
 
+    private boolean cambioPass = false;
     private String usuario = null;
     private String password = null;
     private Usuario usuarioAutenticado;
@@ -189,7 +189,6 @@ public class UsuarioController implements Serializable {
 
     public Usuario obtenerDatosUsu() throws NoSuchAlgorithmException {
         usuarioPass = ejbFacade.obtenerEmpId(usuario);
-        usuarioPass.setUsuPassword(generateHash(newPassword));
         return usuarioPass;
     }
 
@@ -202,14 +201,32 @@ public class UsuarioController implements Serializable {
 
     public void cambiarPass() {
         try {
+            String pass;
+            System.out.println("CAMBIO PASS: " + cambioPass);
             selected = obtenerDatosUsu();
-            String pass = randomPass();
-            selected.setUsuPassword(generateHash(pass));
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-            enviarConGMail("rudelhuancas04@gmail.com", "Cambio de contraseña", "Su contraseña ha sido cambiada\nSu contraseña temporal es:" + pass + "\nSi no fue realizado por ud. contáctese con el administrador.");
-            PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos actualizados", "Datos actualizados correctamente!!"));
+            if (!cambioPass) {
+                pass = randomPass();
+                selected.setUsuPassword(generateHash(pass));
+                enviarConGMail("rudelhuancas04@gmail.com", "Cambio de contraseña", "Su contraseña ha sido cambiada\nSu contraseña temporal es:" + pass + "\nSi no fue realizado por ud. contáctese con el administrador.");
+                cambioPass = true;
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+                PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña reseteada", "Se ha enviado un correo con su clave temporal!!"));
+                usuario = null;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/login.xhtml");
+                
+            } else {
+                cambioPass = false;
+                pass = generateHash(password);
+                selected.setUsuPassword(pass);
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+                PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos actualizados", "Datos actualizados correctamente!!"));
+                usuario = null;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/login.xhtml");
+            }
 
         } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -386,11 +403,6 @@ public class UsuarioController implements Serializable {
         }
     }
 
-    public void back() throws IOException {
-        System.out.println("INDEX");
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/index.xhtml");
-    }
-
     public boolean validaCedula(String x) {
         int suma = 0;
         if (x.length() == 9) {
@@ -426,6 +438,14 @@ public class UsuarioController implements Serializable {
             } else {
                 return false;
             }
+        }
+    }
+
+    public void seleccionPass() throws IOException {
+        if (cambioPass) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/newPass.xhtml");
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/mailPass.xhtml");
         }
     }
 

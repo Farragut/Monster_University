@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewAction action="#{usuarioController.verificarSesion()}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Cambio de contraseña</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/menu.css"/>
+    </h:head>
+    <h:body style="background: url('background.jpg')no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;">
+
+        <h:form>
+            <p:menubar>
+                <p:submenu rendered="#{usuarioController.opcionCheck(8) || usuarioController.opcionCheck(24) || usuarioController.opcionCheck(16) || usuarioController.opcionCheck(15)}" label="Gestión de personal" >
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(8)}" value="Empleado" url="/Monster_University/faces/empleado/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(24)}" value="Usuario" url="/Monster_University/faces/usuario/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(16)}" value="Proveedor" url="/Monster_University/faces/proveedor/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(15)}" value="Opciones de perfil" url="/Monster_University/faces/perfilOpciones/List.xhtml" />
+                </p:submenu>
+                <p:submenu rendered="#{usuarioController.opcionCheck(4) || usuarioController.opcionCheck(5) || usuarioController.opcionCheck(7) || usuarioController.opcionCheck(20)}" label="Gestión de almacén">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(4)}" value="Bien interno" url="/Monster_University/faces/bienInterno/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(5)}" value="Bien por proveedor" url="/Monster_University/faces/bienProveedor/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(7)}" value="Detalle entrada a almacén" url="/Monster_University/faces/entradaAlmacen/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(20)}" value="Salida de bien" url="/Monster_University/faces/salidaBien/List.xhtml" />
+                </p:submenu>
+                <p:submenu rendered="#{usuarioController.opcionCheck(1) || usuarioController.opcionCheck(10) || usuarioController.opcionCheck(11) || usuarioController.opcionCheck(14)|| usuarioController.opcionCheck(18) || usuarioController.opcionCheck(23)}" label="Gestión interna">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(1)}" value="Área" url="/Monster_University/faces/area/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(10)}" value="Estado civil" url="/Monster_University/faces/estadoCivil/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(11)}" value="Opciones" url="/Monster_University/faces/opciones/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(14)}" value="Perfil" url="/Monster_University/faces/perfil/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(18)}" value="Rubro Presupuestal" url="/Monster_University/faces/rubroPresupuestal/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(23)}" value="Unidad de Medida" url="/Monster_University/faces/unidadMedida/List.xhtml" />
+                </p:submenu>
+                <p:submenu rendered="#{usuarioController.opcionCheck(6) || usuarioController.opcionCheck(13) || usuarioController.opcionCheck(21) || usuarioController.opcionCheck(22)}" label="Gestión contractual">
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(6)}" value="Cotización" url="/Monster_University/faces/cotizacion/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(13)}" value="Solicitud de orden contractual" url="/Monster_University/faces/ordcSolicitud/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(13)}" value="Orden Contractual" url="/Monster_University/faces/ordenContractual/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(21)}" value="Solicitud" url="/Monster_University/faces/solicitud/List.xhtml" />
+                    <p:menuitem rendered="#{usuarioController.opcionCheck(22)}" value="Detalle de Solicitud" url="/Monster_University/faces/solicitudDetalle/List.xhtml" />
+                </p:submenu>
+                <p:menuitem value="Cambio de contraseña" url="/Monster_University/faces/newPass.xhtml"/>
+                <p:menuitem value="Salir" actionListener="#{usuarioController.terminarSesion()}"/>
+            </p:menubar>
+        </h:form>
+
+        <h:form style="position: absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+            <p:growl id="message" life="3000"/> 
+            <p:panelGrid columns="2" id="pGrid" class="cuadro">
+                <p:outputLabel value="Usuario" for="user"/>
+                <p:outputLabel id="user" value="#{usuarioController.usuario}"/>
+                <p:column/>
+                <p:commandButton value="Resetear clave" icon="ui ui-icon-key" actionListener="#{usuarioController.cambiarPass()}"/>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
