@@ -24,6 +24,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
@@ -210,17 +211,22 @@ public class UsuarioController implements Serializable {
                 enviarConGMail("rudelhuancas04@gmail.com", "Cambio de contraseña", "Su contraseña ha sido cambiada\nSu contraseña temporal es:" + pass + "\nSi no fue realizado por ud. contáctese con el administrador.");
                 cambioPass = true;
                 persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-                PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña reseteada", "Se ha enviado un correo con su clave temporal!!"));
                 usuario = null;
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                Flash flash = facesContext.getExternalContext().getFlash();
+                flash.setKeepMessages(true);
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña reseteada", "La contraseña ha sido reseteada"));
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/login.xhtml");
-                
             } else {
                 cambioPass = false;
                 pass = generateHash(password);
                 selected.setUsuPassword(pass);
                 persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-                PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos actualizados", "Datos actualizados correctamente!!"));
                 usuario = null;
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                Flash flash = facesContext.getExternalContext().getFlash();
+                flash.setKeepMessages(true);
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña cambiada", "La contraseña ha sido cambiada con éxito"));
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Monster_University/faces/login.xhtml");
             }
 

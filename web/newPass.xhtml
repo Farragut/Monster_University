@@ -58,15 +58,13 @@
                 <p:panelGrid columns="2" id="pGrid" class="cuadro">
                     <p:outputLabel value="Usuario" for="user"/>
                     <p:outputLabel id="user" value="#{usuarioController.usuario}"/>
-                    <p:outputLabel value="Contraseña Antigua" for="passAn"/>
-                    <p:password required="true" id="passAn" value="#{usuarioController.antPassword}"/>
                     <p:outputLabel value="Contraseña Nueva" for="passNu"/>
 
                     <p:password required="true" id="passNu" value="#{usuarioController.password}" feedback="true" 
                                 weakLabel="Contraseña débil" goodLabel="Contraseña adecuada" strongLabel="Contraseña fuerte" 
                                 inline="true" promptLabel="Contraseña" match="repPassNu" validatorMessage="Contraseñas diferentes"/>
                     <p:outputLabel value="Repetir Contraseña Nueva" for="repPassNu"/>
-                    <p:password required="true" id="repPassNu" value="#{usuarioController.repPassword}"/>
+                    <p:password required="true" id="repPassNu" value="#{usuarioController.repPassword}" />
                     <p:column/>
                     <p:commandButton  icon="ui-icon-key" actionListener="#{usuarioController.cambiarPass()}" value="Cambiar contraseña" update="pGrid, growl"/>
                 </p:panelGrid>
